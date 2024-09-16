@@ -73,7 +73,13 @@ namespace dotNETControllersApp.Controllers
             }
 
             //return Content("<h1>Welcome to ASP.NET Contollers App</h1><h2>Hi from Index</h2>", "text/html");
-            return File("Dummy Document.pdf", "application/pdf");
+            //return File("Dummy Document.pdf", "application/pdf");
+
+            // redirecting to a new url
+            //return new RedirectToActionResult("Books", "Store", new {});
+            return RedirectToAction("Books", "Store", new { id = bookid });
+
+            //return new RedirectToActionResult("Books", "Store", new {}, true);
         }
 
         [Route("person")]
