@@ -4,8 +4,9 @@ builder.Services.AddControllers();      // adds all controller classes in the pr
 
 var app = builder.Build();
 
-app.MapControllers();                   // follwowing lines of code do the exact same job as this MapControllers() method does
-//app.UseRouting();
+app.UseStaticFiles();
+app.UseRouting();
+app.MapControllers();                   // following lines of code do the exact same job as this MapControllers() method does
 //app.UseEndpoints(endpoints =>
 //{
 //    endpoints.MapControllers();

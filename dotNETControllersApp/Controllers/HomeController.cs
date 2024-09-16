@@ -30,6 +30,30 @@ namespace dotNETControllersApp.Controllers
             return Json(person);
         }
 
+        // method to downlaod pdf file only from `wwwroot` directory
+        [Route("downloadfile1")]
+        public VirtualFileResult VirtualFileDownload()
+        {
+            //return new VirtualFileResult("/Dummy Document.pdf", "application/pdf");
+            return File("Dummy Document.pdf", "application/pdf");
+        }
+
+        // method to download pdf file from any directory
+        [Route("downloadfile2")]
+        public PhysicalFileResult PhysicalFileDownload()
+        {
+            //return new PhysicalFileResult(@"C:\\Users\\Zaib\\Downloads\\Zoro protocol.pdf", "application/pdf");
+            return PhysicalFile(@"C:\\Users\\Zaib\\Downloads\\Zoro protocol.pdf", "application/pdf");
+        }
+
+        [Route("downloadfile3")]
+        public FileContentResult FileContentDownload()
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(@"C:\Users\Zaib\Pictures\My Posts\slack bot icon.png");
+            //return new FileContentResult(fileBytes, "image/png");
+            return File(fileBytes, "iamge/png");
+        }
+
         // ^??$ -> template for regex expression
         // //d  -> for digits only
         // {{??}} -> for number of characters
