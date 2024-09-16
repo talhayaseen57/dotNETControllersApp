@@ -7,7 +7,7 @@ namespace dotNETControllersApp.Controllers
     {
         [Route("/")]
         [Route("home")]
-        public ContentResult Index()
+        public IActionResult Index()
         {
             //return "Hello! from Index method of HomeController.";     -> for string type return
 
@@ -20,6 +20,49 @@ namespace dotNETControllersApp.Controllers
             //return Content("Hello! from Index method of HomeController.", "text/plain");
 
             return Content("<h1>Welcome to ASP.NET Contollers App</h1><h2>Hi from Index</h2>", "text/html");
+        }
+
+        [Route("book")]
+        public IActionResult Book()
+        {
+            // bookid parameter isn't provided
+            if (!Request.Query.ContainsKey("bookid"))
+            {
+                Response.StatusCode = 400;
+                return Content("Alas! bookid parameter is not provided.");
+            }
+
+            // bookid parameter can't be empty
+            if (string.IsNullOrEmpty(Convert.ToString(Request.Query["bookid"])))
+            {
+                Response.StatusCode = 400;
+                return Content("The provided bookid parameter can't be null or empty.");
+            }
+
+            int bookid = Convert.ToInt16(ControllerContext.HttpContext.Request.Query["bookid"]);
+            //int bookid = Convert.ToInt16(Request.Query["bookid"]);
+
+            // bookid is not between 0 and 1000
+            if (bookid <= 0)
+            {
+                Response.StatusCode = 400;
+                return Content("The provided bookid can't be less than or equal to zero.");
+            }
+            else if (bookid > 1000)
+            {
+                Response.StatusCode = 400;
+                return Content("The provided bookid can't be greater than 1000.");
+            }
+
+            // isloggedin parameter is false
+            if (Convert.ToBoolean(Request.Query["isloggedin"]) == false)
+            {
+                Response.StatusCode = 401;
+                return Content("Authenticaltion Failed!");
+            }
+
+            //return Content("<h1>Welcome to ASP.NET Contollers App</h1><h2>Hi from Index</h2>", "text/html");
+            return File("Dummy Document.pdf", "application/pdf");
         }
 
         [Route("person")]
