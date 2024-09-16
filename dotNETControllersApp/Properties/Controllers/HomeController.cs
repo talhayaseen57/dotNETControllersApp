@@ -2,13 +2,18 @@
 
 namespace dotNETControllersApp.Properties.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
-        [Route("home")]
         [Route("/")]
-        public string Index()
+        [Route("home")]
+        public ContentResult Index()
         {
-            return "Hello! from Index method of HomeController.";
+            //return "Hello! from Index method of HomeController.";     -> for string type return
+            return new ContentResult()
+            {
+                Content = "Hello! from Index method of HomeController.",
+                ContentType = "text/plain"
+            };
         }
 
         // ^??$ -> template for regex expression
