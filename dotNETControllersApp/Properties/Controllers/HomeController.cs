@@ -4,9 +4,10 @@ namespace dotNETControllersApp.Properties.Controllers
 {
     public class HomeController
     {
-        public string method1()
+        [Route("home")]
+        public string homeMethod()
         {
-            return "Hello! from method1 of HomeController.";
+            return "Hello! from homeMethod of HomeController.";
         }
     }
 }
