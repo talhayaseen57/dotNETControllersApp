@@ -28,15 +28,20 @@ namespace dotNETControllersApp.Controllers
             // bookid parameter isn't provided
             if (!Request.Query.ContainsKey("bookid"))
             {
-                Response.StatusCode = 400;
-                return Content("Alas! bookid parameter is not provided.");
+                //Response.StatusCode = 400;
+                //return Content("Alas! bookid parameter is not provided.");
+
+                //return new BadRequestResult("Alas! bookid parameter is not provided.");
+                return BadRequest("Alas! bookid parameter is not provided.");
             }
 
             // bookid parameter can't be empty
             if (string.IsNullOrEmpty(Convert.ToString(Request.Query["bookid"])))
             {
-                Response.StatusCode = 400;
-                return Content("The provided bookid parameter can't be null or empty.");
+                //Response.StatusCode = 400;
+                //return Content("The provided bookid parameter can't be null or empty.");
+
+                return BadRequest("The provided bookid parameter can't be null or empty.");
             }
 
             int bookid = Convert.ToInt16(ControllerContext.HttpContext.Request.Query["bookid"]);
@@ -45,20 +50,26 @@ namespace dotNETControllersApp.Controllers
             // bookid is not between 0 and 1000
             if (bookid <= 0)
             {
-                Response.StatusCode = 400;
-                return Content("The provided bookid can't be less than or equal to zero.");
+                //Response.StatusCode = 400;
+                //return Content("The provided bookid can't be less than or equal to zero.");
+
+                return BadRequest("The provided bookid can't be less than or equal to zero.");
             }
             else if (bookid > 1000)
             {
-                Response.StatusCode = 400;
-                return Content("The provided bookid can't be greater than 1000.");
+                //Response.StatusCode = 400;
+                //return Content("The provided bookid can't be greater than 1000.");
+
+                return NotFound("The provided bookid can't be greater than 1000.");
             }
 
             // isloggedin parameter is false
             if (Convert.ToBoolean(Request.Query["isloggedin"]) == false)
             {
-                Response.StatusCode = 401;
-                return Content("Authenticaltion Failed!");
+                //Response.StatusCode = 401;
+                //return Content("Authenticaltion Failed!");
+
+                return Unauthorized("Authenticaltion Failed!");
             }
 
             //return Content("<h1>Welcome to ASP.NET Contollers App</h1><h2>Hi from Index</h2>", "text/html");
