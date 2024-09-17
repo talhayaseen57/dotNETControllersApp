@@ -72,14 +72,23 @@ namespace dotNETControllersApp.Controllers
                 return Unauthorized("Authenticaltion Failed!");
             }
 
-            //return Content("<h1>Welcome to ASP.NET Contollers App</h1><h2>Hi from Index</h2>", "text/html");
             //return File("Dummy Document.pdf", "application/pdf");
 
             // redirecting to a new url
             //return new RedirectToActionResult("Books", "Store", new {});
-            return RedirectToAction("Books", "Store", new { id = bookid });
+            //return RedirectToAction("Books", "Store", new { id = bookid });
 
             //return new RedirectToActionResult("Books", "Store", new {}, true);
+            //return RedirectToActionPermanent("Books", "Store", new { id = bookid });
+
+            //return new LocalRedirectResult($"/store/books/{bookid}");
+            //return LocalRedirect($"/store/books/{bookid}");
+
+            //return new LocalRedirectResult($"/store/books/{bookid}", true);
+            //return LocalRedirectPermanent($"/store/books/{bookid}");
+
+            //return Redirect($"/store/books/{bookid}");
+            return RedirectPermanent($"/store/books/{bookid}");
         }
 
         [Route("person")]
