@@ -4,6 +4,50 @@ namespace dotNETControllersApp.Controllers
 {
     public class StoreController : Controller
     {
+        [Route("bookstore/{bookId?}/{isloggedin?}")]
+        //public IActionResult Index(int? bookId, bool? isloggedin)
+        public IActionResult Index([FromQuery] int? bookId, [FromRoute] bool? isloggedin)
+        {
+            // bookid parameter isn't provided
+            //if (!Request.Query.ContainsKey("bookid"))
+            if (bookId.HasValue == false)
+            {
+                //Response.StatusCode = 400;
+                //return Content("Alas! bookid parameter is not provided.");
+
+                //return new BadRequestResult("Alas! bookid parameter is not provided.");
+                return BadRequest("Alas! bookid parameter is not provided or is empty.");
+            }
+
+            // bookid is not between 0 and 1000
+            if (bookId <= 0)
+            {
+                //Response.StatusCode = 400;
+                //return Content("The provided bookid can't be less than or equal to zero.");
+
+                return BadRequest("The provided bookid can't be less than or equal to zero.");
+            }
+            else if (bookId > 1000)
+            {
+                //Response.StatusCode = 400;
+                //return Content("The provided bookid can't be greater than 1000.");
+
+                return NotFound("The provided bookid can't be greater than 1000.");
+            }
+
+            // isloggedin parameter is false
+            if (isloggedin == false)
+            {
+                //Response.StatusCode = 401;
+                //return Content("Authenticaltion Failed!");
+
+                //return Unauthorized("Authenticaltion Failed!");
+                return StatusCode(401);
+            }
+
+            return Content($"Book id: {bookId}", "text/plain");
+        }
+
         [Route("/store/books/{id}")]
         public IActionResult Books()
         {
