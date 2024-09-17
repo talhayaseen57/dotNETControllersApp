@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using dotNETControllersApp.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace dotNETControllersApp.Controllers
 {
@@ -6,11 +7,11 @@ namespace dotNETControllersApp.Controllers
     {
         [Route("bookstore/{bookId?}/{isloggedin?}")]
         //public IActionResult Index(int? bookId, bool? isloggedin)
-        public IActionResult Index([FromQuery] int? bookId, [FromRoute] bool? isloggedin)
+        public IActionResult Index([FromQuery] int? bookid, [FromRoute] bool? isloggedin, Book book)
         {
             // bookid parameter isn't provided
             //if (!Request.Query.ContainsKey("bookid"))
-            if (bookId.HasValue == false)
+            if (bookid.HasValue == false)
             {
                 //Response.StatusCode = 400;
                 //return Content("Alas! bookid parameter is not provided.");
@@ -20,14 +21,14 @@ namespace dotNETControllersApp.Controllers
             }
 
             // bookid is not between 0 and 1000
-            if (bookId <= 0)
+            if (bookid <= 0)
             {
                 //Response.StatusCode = 400;
                 //return Content("The provided bookid can't be less than or equal to zero.");
 
                 return BadRequest("The provided bookid can't be less than or equal to zero.");
             }
-            else if (bookId > 1000)
+            else if (bookid > 1000)
             {
                 //Response.StatusCode = 400;
                 //return Content("The provided bookid can't be greater than 1000.");
@@ -45,7 +46,7 @@ namespace dotNETControllersApp.Controllers
                 return StatusCode(401);
             }
 
-            return Content($"Book id: {bookId}", "text/plain");
+            return Content($"Book id: {bookid}, {book}", "text/plain");
         }
 
         [Route("/store/books/{id}")]
